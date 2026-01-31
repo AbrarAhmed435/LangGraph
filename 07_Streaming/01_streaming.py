@@ -1,3 +1,10 @@
+"""
+Read docs : https://docs.langchain.com/oss/python/langgraph/streaming
+"""
+
+
+
+
 from langgraph.graph import StateGraph, START,END
 from typing import TypedDict, Literal,Annotated
 from langchain_openai import ChatOpenAI
@@ -55,6 +62,10 @@ graph.add_edge(START,'chat_node')
 graph.add_edge('chat_node',END)
 
 workflow=graph.compile(checkpointer=checkpointer)
+
+# The "messages" stream mode returns an iterator of tuples (message_chunk, metadata)
+# where message_chunk is the token streamed by the LLM and metadata is a dictionary
+# with information about the graph node where the LLM was called and other information
 
 for message_chunk, metadata in workflow.stream(
     {"messages": [HumanMessage(content="What is capital of india, and why give detailed report?")]},

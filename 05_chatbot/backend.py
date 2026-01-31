@@ -14,14 +14,14 @@ llm=HuggingFaceEndpoint(
     # repo_id="lmsys/vicuna-13b-v1.5",
     task="text-generation"
 )
-# model=ChatHuggingFace(llm=llm)
+model=ChatHuggingFace(llm=llm)
 # generator=ChatHuggingFace(llm=llm)
 
 from langgraph.graph.message import add_messages
 class ChatState(TypedDict):
     messages:Annotated[list[BaseMessage], add_messages]
     
-model=ChatGoogleGenerativeAI(model='gemini-2.5-flash')
+# model=ChatGoogleGenerativeAI(model='gemini-2.5-flash')
 # model1=ChatOpenAI(model='gpt-4.1-mini')
 def chat_node(state:ChatState):
     messages=state['messages'][-10:]
@@ -56,13 +56,13 @@ graph.add_edge('chat_node',END)
 
 workflow=graph.compile(checkpointer=checkpointer)
 
-for message_chunk, metadata in workflow.stream(
-    {"messages": [HumanMessage(content="What is capital of india, and why give detailed report?")]},
-    config=config,
-    stream_mode="messages",  
-):
-     if message_chunk.content:
-        print(message_chunk.content, end="|", flush=True)
+# for message_chunk, metadata in workflow.stream(
+#     {"messages": [HumanMessage(content="What is capital of india, and why give detailed report?")]},
+#     config=config,
+#     stream_mode="messages",  
+# ):
+#      if message_chunk.content:
+#         print(message_chunk.content, end="|", flush=True)
 
 # conversation=[]
 # thread_id='2'
