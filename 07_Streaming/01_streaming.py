@@ -15,20 +15,20 @@ from langgraph.checkpoint.memory import MemorySaver
 load_dotenv()
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 llm=HuggingFaceEndpoint(
-    # repo_id="HuggingFaceH4/zephyr-7b-beta",
-    repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+    repo_id="HuggingFaceH4/zephyr-7b-beta",
+    # repo_id="mistralai/Mistral-7B-Instruct-v0.2",
     # repo_id="HuggingFaceH4/zephyr-7b-gemma-v0.1",
     # repo_id="lmsys/vicuna-13b-v1.5",
     task="text-generation"
 )
-# model=ChatHuggingFace(llm=llm)
+model=ChatHuggingFace(llm=llm)
 # generator=ChatHuggingFace(llm=llm)
 
 from langgraph.graph.message import add_messages
 class ChatState(TypedDict):
     messages:Annotated[list[BaseMessage], add_messages]
     
-model=ChatGoogleGenerativeAI(model='gemini-2.5-flash')
+# model=ChatGoogleGenerativeAI(model='gemini-2.5-flash')
 # model1=ChatOpenAI(model='gpt-4.1-mini')
 def chat_node(state:ChatState):
     messages=state['messages'][-10:]
