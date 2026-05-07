@@ -3,4 +3,4 @@ env_langgraph/
 .env/
 __pycache__/
 *.pyc
-chatbot.db
+chatbot.db.env
